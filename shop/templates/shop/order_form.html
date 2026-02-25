@@ -1,19 +1,52 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>Заказ</title>
-</head>
-<body>
-  <h1>Заказ: {{ product.name }}</h1>
-  <p>Цена: {{ product.price }} ₽</p>
+{% extends "base.html" %}
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Оформить заказ</button>
-  </form>
+{% block title %}Оформление заказа — FlowerDelivery{% endblock %}
 
-  <p><a href="{% url 'product_list' %}">Назад в каталог</a></p>
-</body>
-</html>
+{% block content %}
+
+<h1 class="page-title">Оформление заказа</h1>
+
+<div class="card">
+    <h2 class="card-title">{{ product.name }}</h2>
+
+    {% if product.image %}
+        <img class="product-preview" src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% endif %}
+
+    <p class="muted">{{ product.description }}</p>
+    <p class="price">{{ product.price }} ₽</p>
+
+    <hr class="divider">
+
+    <form method="post" class="form">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-row">
+            <label class="label" for="{{ form.customer_name.id_for_label }}">Имя</label>
+            {{ form.customer_name }}
+            {{ form.customer_name.errors }}
+        </div>
+
+        <div class="form-row">
+            <label class="label" for="{{ form.customer_phone.id_for_label }}">Телефон</label>
+            {{ form.customer_phone }}
+            {{ form.customer_phone.errors }}
+        </div>
+
+        <div class="form-row">
+            <label class="label" for="{{ form.customer_email.id_for_label }}">Email</label>
+            {{ form.customer_email }}
+            {{ form.customer_email.errors }}
+        </div>
+
+        <button type="submit" class="btn">Подтвердить заказ</button>
+    </form>
+
+    <p class="back-link">
+        <a href="/">← Вернуться в каталог</a>
+    </p>
+</div>
+
+{% endblock %}

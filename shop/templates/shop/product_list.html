@@ -1,36 +1,38 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>Каталог</title>
-</head>
-<body>
-<div>
-  {% if user.is_authenticated %}
-    <p>Вы вошли как {{ user.username }}</p>
-    <form method="post" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button type="submit">Выйти</button>
-    </form>
-  {% else %}
-    <a href="{% url 'login' %}">Войти</a> |
-    <a href="{% url 'register' %}">Регистрация</a>
-  {% endif %}
-</div>
-<hr>
-  <h1>Каталог</h1>
+{% extends "base.html" %}
 
-  {% if products %}
-    <ul>
-      {% for product in products %}
-  <li>
-    <strong>{{ product.name }}</strong> — {{ product.price }} ₽
-    <a href="{% url 'create_order' product.id %}">Заказать</a>
-  </li>
-{% endfor %}
-    </ul>
-  {% else %}
-    <p>Товаров пока нет.</p>
-  {% endif %}
-</body>
-</html>
+{% block title %}Каталог — FlowerDelivery{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Каталог цветов</h1>
+<p class="catalog-count">Всего товаров: {{ products|length }}</p>
+
+{% if products %}
+    <div class="products-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="product-image-placeholder">Фото отсутствует</div>
+                {% endif %}
+
+                <p class="description">
+                    {{ product.description|truncatechars:110 }}
+                </p>
+
+                <p class="price">{{ product.price }} ₽</p>
+
+                <a class="btn" href="{% url 'create_order' product.id %}">
+                    Заказать
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Товары пока отсутствуют.</p>
+{% endif %}
+
+{% endblock %}

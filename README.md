@@ -1,22 +1,37 @@
-# FlowerDelivery Basic
+# FlowerDelivery Basic+
 
-Минимальный Django-проект доставки цветов.
-
-- Без корзины
-- Один заказ = один товар
-- Каталог товаров + оформление заказа
-- Регистрация / логин / логаут
-- Уведомление о заказе в Telegram (опционально)
+Улучшенная (UI/UX) версия проекта **FlowerDelivery Basic** без изменения бизнес-логики:
+- **без корзины**
+- **заказ = один товар**
+- **без статусов/пользователя в Order**
+- Telegram-уведомления работают
 
 ## Стек
-
 - Python 3.11
 - Django 5.2.11
 - SQLite
+- python-dotenv
+- requests
 
-## Установка
+## Функциональность
+- Каталог товаров: `/`
+- Оформление заказа: `/order/<product_id>/`
+- Страница успеха: `/order/success/`
+- Регистрация: `/register/`
+- Вход: `/accounts/login/`
+- Выход: POST `/accounts/logout/`
+- Django messages (успешный заказ)
 
-```bash
+## ENV
+Создай файл `.env` в корне проекта:
+
+```env
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_CHAT_ID=...
+
+.env не должен попадать в git.
+
+Установка и запуск
 python -m venv .venv
 # Windows:
 .venv\Scripts\activate
@@ -24,30 +39,28 @@ python -m venv .venv
 # source .venv/bin/activate
 
 pip install -r requirements.txt
-
-Переменные окружения
-
-Создай файл .env в корне проекта:
-
-TELEGRAM_BOT_TOKEN=YOUR_TOKEN
-TELEGRAM_CHAT_ID=YOUR_CHAT_ID
-
-Если переменные не заданы — проект работает, просто без Telegram-уведомлений.
-
-Запуск
 python manage.py migrate
-python manage.py createsuperuser
 python manage.py runserver
 
-Открыть:
-
-Каталог: http://127.0.0.1:8000/
-
-Админка: http://127.0.0.1:8000/admin/
+Открыть: http://127.0.0.1:8000/
 
 Тесты
 python manage.py test
+Примечания
 
-### Команды (терминал PyCharm)
+Проект предназначен для учебного/демо сценария.
+
+UI улучшен, но архитектура и модель данных уровня Basic сохранены.
+
+
+---
+
+## Проверка (кратко)
+
+1) `README.md` обновлён  
+2) Команды в README запускаются  
+3) Git diff показывает только README
+
+Команды:
 ```bash
-git status
+git diff

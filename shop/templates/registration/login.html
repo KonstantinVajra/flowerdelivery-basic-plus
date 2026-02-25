@@ -1,23 +1,35 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>Вход</title>
-</head>
-<body>
-  <h1>Вход</h1>
+{% extends "base.html" %}
 
-  {% if form.errors %}
-    <p>Неверный логин или пароль.</p>
-  {% endif %}
+{% block title %}Вход — FlowerDelivery{% endblock %}
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-  </form>
+{% block content %}
 
-  <p><a href="{% url 'register' %}">Регистрация</a></p>
-  <p><a href="{% url 'product_list' %}">Назад в каталог</a></p>
-</body>
-</html>
+<h1 class="page-title">Вход</h1>
+
+<div class="card">
+    <form method="post" class="form">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-row">
+            <label class="label" for="{{ form.username.id_for_label }}">Логин</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="form-row">
+            <label class="label" for="{{ form.password.id_for_label }}">Пароль</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <button type="submit" class="btn">Войти</button>
+    </form>
+
+    <p class="back-link">
+        Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a>
+    </p>
+</div>
+
+{% endblock %}

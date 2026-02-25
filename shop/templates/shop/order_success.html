@@ -1,13 +1,17 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>Заказ оформлен</title>
-</head>
-<body>
-  <h1>Спасибо! Заказ оформлен.</h1>
-  <p>Мы скоро свяжемся с вами.</p>
+{% extends "base.html" %}
 
-  <p><a href="{% url 'product_list' %}">Вернуться в каталог</a></p>
-</body>
-</html>
+{% block title %}Заказ оформлен — FlowerDelivery{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Спасибо! Заказ оформлен ✅</h1>
+
+<div class="card">
+    <p class="muted">
+        Мы получили ваш заказ и скоро свяжемся с вами.
+    </p>
+
+    <a class="btn" href="/">Вернуться в каталог</a>
+</div>
+
+{% endblock %}

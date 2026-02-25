@@ -1,18 +1,41 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>Регистрация</title>
-</head>
-<body>
-  <h1>Регистрация</h1>
+{% extends "base.html" %}
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Создать аккаунт</button>
-  </form>
+{% block title %}Регистрация — FlowerDelivery{% endblock %}
 
-  <p><a href="{% url 'product_list' %}">Назад в каталог</a></p>
-</body>
-</html>
+{% block content %}
+
+<h1 class="page-title">Регистрация</h1>
+
+<div class="card">
+    <form method="post" class="form">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-row">
+            <label class="label" for="{{ form.username.id_for_label }}">Логин</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="form-row">
+            <label class="label" for="{{ form.password1.id_for_label }}">Пароль</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+        </div>
+
+        <div class="form-row">
+            <label class="label" for="{{ form.password2.id_for_label }}">Повтор пароля</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+        </div>
+
+        <button type="submit" class="btn">Создать аккаунт</button>
+    </form>
+
+    <p class="back-link">
+        Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+    </p>
+</div>
+
+{% endblock %}

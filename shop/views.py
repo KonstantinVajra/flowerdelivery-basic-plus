@@ -9,6 +9,8 @@ from .models import Product
 from .services import send_telegram_notification, send_telegram_photo
 
 
+
+
 def product_list(request):
     products = Product.objects.all()
     return render(request, "shop/product_list.html", {"products": products})
@@ -75,3 +77,7 @@ def create_order(request, product_id):
 
 def order_success(request):
     return render(request, "shop/order_success.html")
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, "shop/product_detail.html", {"product": product})

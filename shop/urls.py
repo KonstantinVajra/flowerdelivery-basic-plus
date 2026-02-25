@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import product_list,register,logout_view, create_order, order_success
+from .views import product_list,register,logout_view, create_order, product_detail, order_success
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("order/<int:product_id>/", create_order, name="create_order"),
     path("order/success/", order_success, name="order_success"),
+    path("product/<int:pk>/", product_detail, name="product_detail"),
 ]
